@@ -1,0 +1,18 @@
+[
+    {
+        "sentence": "i am entering a garden",
+        "image_names": [
+            "i_1.png",
+            "enter_1.png",
+            "garden_1.png"
+        ]
+    },
+    {
+        "sentence": "we went to the park",
+        "image_names": [
+            "we_1.png",
+            "go_1.png",
+            "park_2.png"
+        ]
+    }
+]

@@ -1,0 +1,20 @@
+{
+  "questions": [
+    {
+      "image": "flag_India.svg",
+      "name": "india"
+    },
+    {
+      "image": "twelve.svg",
+      "name": "twelve"
+    },
+    {
+      "image": "washing_machine.svg",
+      "name": "washing machine"
+    },
+    {
+      "image": "wine.svg",
+      "name": "wine"
+    }
+  ]
+}

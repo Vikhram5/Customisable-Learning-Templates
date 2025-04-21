@@ -1,0 +1,14 @@
+{
+  "questions": [
+    {
+      "question": "What is this",
+      "image": "clock.svg",
+      "options": [
+        "Clock",
+        "Nothing"
+      ],
+      "answer": "Clock",
+      "numOptions": 2
+    }
+  ]
+}

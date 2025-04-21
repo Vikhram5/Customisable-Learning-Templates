@@ -1,0 +1,4 @@
+{
+  "details": "[Errno 2] No such file or directory: '../../template-builder/public/settings_quiz.json'",
+  "error": "Failed to load settings"
+}
