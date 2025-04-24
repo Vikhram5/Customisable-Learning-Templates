@@ -1,9 +1,21 @@
 import { useState } from "react";
 const apiBaseUrl = import.meta.env.VITE_BASE_URL;
-import loadingGif from '../../assets/loading_image.gif'
+import loadingGif from "../../assets/loading_image.gif";
 
 const stopwords = new Set([
-  "to", "the", "and", "be", "a", "an", "is", "on", "at", "for", "with", "of", "am"
+  "to",
+  "the",
+  "and",
+  "be",
+  "a",
+  "an",
+  "is",
+  "on",
+  "at",
+  "for",
+  "with",
+  "of",
+  "am",
 ]);
 
 const ImageFetcher = () => {
@@ -115,7 +127,12 @@ const ImageFetcher = () => {
         <div className="text-center">
           <button
             onClick={fetchImages}
-            className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition duration-300"
+            disabled={!sentence.trim()}
+            className={`px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl ${
+              !sentence.trim()
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-blue-700"
+            } transition duration-300`}
           >
             Fetch Images
           </button>
