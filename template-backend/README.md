@@ -1,7 +1,7 @@
 
-# Flask Backend API for AAC Game Project
+# Flask Backend Application for customisable gamified templates
 
-This is the backend API for the AAC Game project, providing various routes for managing quiz data, sentence builders, image management, and settings configuration. The project includes functionality for saving and retrieving MCQ and Match-up quiz data, handling sentence creation with image selection, and managing game settings dynamically.
+This backend API is designed specifically for a project that supports students who use Augmentative and Alternative Communication (AAC) methods , providing various routes for managing quiz data, sentence builders, image management, and settings configuration. The project includes functionality for saving and retrieving MCQ and Match-up quiz data, handling sentence creation with image selection, and managing game settings dynamically.
 
 ## Table of Contents
 
