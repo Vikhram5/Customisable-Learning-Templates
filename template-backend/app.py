@@ -9,15 +9,17 @@ app = Flask(__name__)
 
 FRONTEND_URLS = [
     "http://localhost:5173",
+    "http://localhost:5174",
     "http://127.0.0.1:5173",
     "http://192.168.0.101:5173",
     "http://10.11.159.126:5173",
-    "http://192.168.145.118:5173" 
+    "http://192.168.145.118:5173",
+    "http://192.168.107.152:5173"
 ]
 
 CORS(app, resources={r"/*": {"origins": FRONTEND_URLS}})
 
-MCQ_PATH="../template-builder/public/qsuestions.json"
+MCQ_PATH="../template-builder/public/questions.json"
 MATCHUP_PATH="../template-builder/public/match.json"
 
 
@@ -49,20 +51,6 @@ def match_json():
     
 SETTINGS_FILE = "../template-builder/public/settings_quiz.json"
 
-#-------------------------------quiz stats-------------------------------#
-
-
-QUIZ_STATS="../template-builder/public/match.json"
-
-@app.route("/save-stats", methods=["POST"])
-def save_stats():
-    data = request.json
-    try:
-        with open(QUIZ_STATS, "w") as f:
-            json.dump(data, f, indent=2)
-        return jsonify({"message": "Stats saved successfully!"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 #-------------------------------settings configuration-------------------------------#
 
@@ -224,6 +212,22 @@ def save_selected_images():
         print(f"Error: {e}")
         return jsonify({"success": False, "message": "Failed to save sentence and image names."})
     
+
+#-------------------------------Clear sentence data-------------------------------#
+
+@app.route("/clear-selected-images", methods=["DELETE"])
+def clear_selected_images():
+    file_path = os.path.abspath(
+        os.path.join(os.getcwd(), "../template-builder/public/selected_images.json")
+    )
+    if os.path.exists(file_path):
+        with open(file_path, "w") as f:
+            json.dump([], f)
+        return jsonify({"status": "success", "message": "Data cleared"}), 200
+    return jsonify({"status": "error", "message": "File not found"}), 404
+
+if __name__ == "__main__":
+    app.run(debug=True)
     
 #-------------------------------upload images-------------------------------#
 
