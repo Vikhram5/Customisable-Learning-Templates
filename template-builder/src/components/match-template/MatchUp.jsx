@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
-import matchBackground from '../../assets/matchBackground.png';
+import { useNavigate } from "react-router-dom";
+import matchBackground from "../../assets/matchBackground.png";
 
-import correctSound from '../../assets/audio/correct_answer.mp3';
-import incorrectSound from '../../assets/audio/wrong-answer.mp3';
+import correctSound from "../../assets/audio/correct_answer.mp3";
+import incorrectSound from "../../assets/audio/wrong-answer.mp3";
 
 const MatchUp = () => {
   const [questions, setQuestions] = useState([]);
@@ -23,13 +23,23 @@ const MatchUp = () => {
   const correctAudio = new Audio(correctSound);
   const incorrectAudio = new Audio(incorrectSound);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
+  // Function to read text aloud using SpeechSynthesis API
+  const readAloud = (text) => {
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "en-US";  // You can adjust the language as needed
+    speech.volume = 1;  // Volume level (0 to 1)
+    speech.rate = 1;  // Speed of speech (normal speed)
+    speech.pitch = 1;  // Pitch of the voice (normal pitch)
+    window.speechSynthesis.speak(speech);
+  };
 
   useEffect(() => {
     if (gameOver) {
       const timer = setTimeout(() => {
         navigate("/student-dashboard");
-      }, 3000); //scan speed 
+      }, 3000); //scan speed
       return () => clearTimeout(timer);
     }
   }, [gameOver, navigate]);
@@ -47,13 +57,24 @@ const MatchUp = () => {
   );
 
   const derangeArray = (arr) => {
+    const isDeranged = (original, shuffled) =>
+      original.every((item, index) => item !== shuffled[index]);
+
     let result = [...arr];
     let attempts = 0;
 
     do {
-      result = [...arr].sort(() => Math.random() - 0.5);
+      // Fisher-Yates shuffle
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
       attempts++;
-    } while (result.some((item, idx) => item === arr[idx]) && attempts < 100);
+    } while (!isDeranged(arr, result) && attempts < 100);
+
+    if (attempts === 100) {
+      console.warn("Failed to generate a derangement after 100 attempts");
+    }
 
     return result;
   };
@@ -77,7 +98,8 @@ const MatchUp = () => {
 
           const currentUnmatchedIndex = unmatchedIndexes.indexOf(prev);
           const nextIndex =
-            currentUnmatchedIndex === -1 || currentUnmatchedIndex === unmatchedIndexes.length - 1
+            currentUnmatchedIndex === -1 ||
+            currentUnmatchedIndex === unmatchedIndexes.length - 1
               ? 0
               : currentUnmatchedIndex + 1;
 
@@ -98,7 +120,8 @@ const MatchUp = () => {
 
           const currentUnmatchedIndex = unmatchedIndexes.indexOf(prev);
           const nextIndex =
-            currentUnmatchedIndex === -1 || currentUnmatchedIndex === unmatchedIndexes.length - 1
+            currentUnmatchedIndex === -1 ||
+            currentUnmatchedIndex === unmatchedIndexes.length - 1
               ? 0
               : currentUnmatchedIndex + 1;
 
@@ -108,7 +131,6 @@ const MatchUp = () => {
       return () => clearInterval(interval);
     }
   }, [isCyclingNames, shuffledNames, matchedThisPage, gameOver]);
-
 
   const handleClickAnywhere = () => {
     if (gameOver) return;
@@ -174,15 +196,21 @@ const MatchUp = () => {
     setIsIncorrect(false);
   };
 
+  // Read the name aloud when cycling images or names
+  useEffect(() => {
+    if (shuffledNames[selectedNameIndex]) {
+      readAloud(shuffledNames[selectedNameIndex]);
+    }
+  }, [selectedNameIndex, shuffledNames]);
+
   return (
     <div
       className="text-center p-8 min-h-screen bg-cover bg-center"
       style={{
         backgroundImage: `url(${matchBackground})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
-
       onClick={handleClickAnywhere}
     >
       {gameOver ? (
