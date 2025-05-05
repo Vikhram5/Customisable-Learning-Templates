@@ -47,7 +47,6 @@ const MatchUp = () => {
   );
 
   const derangeArray = (arr) => {
-    // const n = arr.length;
     let result = [...arr];
     let attempts = 0;
 
@@ -105,10 +104,11 @@ const MatchUp = () => {
 
           return unmatchedIndexes[nextIndex] ?? prev;
         });
-      }, 1500);
+      }, 2000);
       return () => clearInterval(interval);
     }
   }, [isCyclingNames, shuffledNames, matchedThisPage, gameOver]);
+
 
   const handleClickAnywhere = () => {
     if (gameOver) return;
