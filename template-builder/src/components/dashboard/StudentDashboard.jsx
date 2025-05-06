@@ -11,7 +11,7 @@ const StudentDashboard = () => {
   return (
     <div
       className="flex justify-center items-center h-screen bg-gradient-to-b from-green-300 to-green-600"
-      style={{ backgroundImage: `url(${student_landing})`}}
+      style={{ backgroundImage: `url(${student_landing})` }}
     >
       <div className="text-center">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

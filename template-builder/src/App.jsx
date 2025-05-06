@@ -16,8 +16,8 @@ import MatchUp from "./components/match-template/MatchUp";
 import SentenceGame from "./components/sentence-builder/SentenceGame";
 import ImageFetcher from "./components/sentence-builder/ImageFetcher";
 
-import TeacherDashboard from './components/dashboard/TeacherDashboard'
-import StudentDashboard from './components/dashboard/StudentDashboard'
+import TeacherDashboard from './components/dashboard/TeacherDashboard';
+import StudentDashboard from './components/dashboard/StudentDashboard';
 
 
 
@@ -35,7 +35,6 @@ function App() {
           <Route path="/matchform" element={<ProtectedRoute element={<MatchTemplate />} allowedRoles={["teacher"]} />} />
           <Route path="/sentence-template" element={<ProtectedRoute element={<ImageFetcher />} allowedRoles={["teacher"]} />} />
           <Route path="/add-images" element={<ProtectedRoute element={<UploadImage />} allowedRoles={["teacher"]} />} />
-
 
           <Route path="/mcq-template" element={<ProtectedRoute element={<QuizGame />} allowedRoles={["teacher", "student"]} />} />
           <Route path="/match-template" element={<ProtectedRoute element={<MatchUp />} allowedRoles={["teacher", "student"]} />} />
